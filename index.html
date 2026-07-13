@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Juros Compostos | Portal Financeiro de Alta Performance</title>
+    <meta name="description" content="Simule seus investimentos com nossa calculadora de juros compostos. Resultados precisos, gráficos e guia completo de SEO sobre educação financeira.">
+
+    <!-- PLACEHOLDER GOOGLE ADSENSE - Substitua pelo seu script real -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#059669',
+                        secondary: '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        input:focus { outline: none; border-color: #059669; }
+        .custom-scrollbar::-webkit-scrollbar { height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #059669; border-radius: 10px; }
+        .ad-placeholder {
+            background: #f1f5f9; border: 1px dashed #cbd5e1; display: flex;
+            align-items: center; justify-content: center; color: #94a3b8; font-size: 12px; border-radius: 8px;
+        }
+        .dark .ad-placeholder { background: #1e293b; border-color: #334155; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col">
+
+    <!-- Navegação -->
+    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-chart-line text-primary text-2xl"></i>
+                    <span class="font-bold text-xl tracking-tight">FinCalc<span class="text-primary">Pro</span></span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                        <i id="theme-icon" class="fas fa-moon text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow container mx-auto px-4 py-8 max-w-5xl">
+
+        <!-- Slot de Anúncio Topo -->
+        <div class="ad-placeholder w-full h-24 mb-8">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXX" data-ad-slot="XXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <span>Publicidade (Horizontal Ad)</span>
+        </div>
+
+        <!-- Hero Section -->
+        <header class="text-center mb-12">
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                Calculadora de Juros Compostos
+            </h1>
+            <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Planeje seu futuro financeiro com precisão e transparência.
+            </p>
+        </header>
+
+        <!-- Calculator Grid -->
+        <div class="grid md:grid-cols-2 gap-8 items-start mb-12">
+
+            <section class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Capital Inicial (R$)</label>
+                        <input type="number" id="capital-inicial" value="1000" class="w-full p-3 rounded-lg bg-slate-100 dark:bg-slate-800 border-transparent focus:ring-2 focus:ring-primary transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Aporte Mensal (R$)</label>
+                        <input type="number" id="aporte-mensal" value="200" class="w-full p-3 rounded-lg bg-slate-100 dark:bg-slate-800 border-transparent focus:ring-2 focus:ring-primary transition-all">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Taxa de Juros (%)</label>
+                            <input type="number" id="taxa-juros" value="12" class="w-full p-3 rounded-lg bg-slate-100 dark:bg-slate-800 border-transparent focus:ring-2 focus:ring-primary transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Frequência</label>
+                            <select id="tipo-taxa" class="w-full p-3 rounded-lg bg-slate-100 dark:bg-slate-800 border-transparent focus:ring-2 focus:ring-primary">
+                                <option value="anual" selected>Anual</option>
+                                <option value="mensal">Mensal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Período</label>
+                            <input type="number" id="periodo" value="10" class="w-full p-3 rounded-lg bg-slate-100 dark:bg-slate-800 border-transparent focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Unidade</label>
+                            <select id="tipo-periodo" class="w-full p-3 rounded-lg bg-slate-100 dark:bg-slate-800 border-transparent focus:ring-2 focus:ring-primary">
+                                <option value="anos" selected>Anos</option>
+                                <option value="meses">Meses</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="calcular()" class="w-full bg-primary hover:bg-secondary text-white font-bold py-4 rounded-xl transition-all shadow-lg transform hover:-translate-y-1">
+                        Calcular Resultados
+                    </button>
+                </div>
+            </section>
+
+            <section class="space-y-4">
+                <div class="bg-primary/10 dark:bg-primary/5 p-8 rounded-2xl border border-primary/20">
+                    <h2 class="text-xl font-semibold mb-6 flex items-center gap-2">
+                        <i class="fas fa-chart-pie text-primary"></i> Resumo da Simulação
+                    </h2>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Valor Total Acumulado</p>
+                            <p id="res-total" class="text-3xl font-bold text-primary">R$ 0,00</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 border-t border-slate-200 dark:border-slate-800 pt-6">
+                            <div>
+                                <p class="text-xs text-slate-500">Total Investido</p>
+                                <p id="res-investido" class="text-lg font-semibold">R$ 0,00</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500">Total em Juros</p>
+                                <p id="res-juros" class="text-lg font-semibold text-secondary">R$ 0,00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slot de Anúncio dentro do Painel de Resultados -->
+                <div class="ad-placeholder w-full h-32">
+                    <span>Publicidade (In-feed Ad)</span>
+                </div>
+            </section>
+        </div>
+
+        <section id="tabela-evolucao-container" class="mb-20 hidden">
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                <i class="fas fa-table text-primary"></i> Evolução Anual
+            </h2>
+            <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 dark:bg-slate-800/50">
+                                <th class="p-4 font-semibold text-sm">Ano</th>
+                                <th class="p-4 font-semibold text-sm">Total Investido</th>
+                                <th class="p-4 font-semibold text-sm">Juros Acumulados</th>
+                                <th class="p-4 font-semibold text-sm text-primary">Saldo Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-corpo" class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conteúdo SEO -->
+        <article class="mt-20 prose prose-slate dark:prose-invert max-w-none border-t border-slate-200 dark:border-slate-800 pt-12">
+            <h2 class="text-3xl font-bold mb-6">Guia Completo: Como funcionam os juros compostos?</h2>
+            <p>Os juros compostos são fundamentais para o acúmulo de riqueza. Entender como eles funcionam permite que você tome decisões financeiras mais inteligentes.</p>
+            <h3 class="text-xl font-semibold text-primary mt-8">FAQ - Perguntas Frequentes</h3>
+            <div class="space-y-4 mt-4">
+                <details class="group border-b border-slate-200 dark:border-slate-800 pb-4 cursor-pointer">
+                    <summary class="font-bold">O site é gratuito?</summary>
+                    <p class="mt-2 text-slate-600 dark:text-slate-400">Sim, nossas ferramentas são 100% gratuitas e os cálculos são feitos localmente no seu dispositivo.</p>
+                </details>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12 mt-20">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center gap-6 mb-8 text-sm font-medium text-slate-600 dark:text-slate-400">
+                <a href="politica-privacidade.html" class="hover:text-primary transition-colors">Privacidade</a>
+                <a href="termos-de-uso.html" class="hover:text-primary transition-colors">Termos de Uso</a>
+            </div>
+            <p class="text-slate-500 text-xs">&copy; 2023 FinCalcPro. Processamento seguro e privado.</p>
+        </div>
+    </footer>
+
+    <!-- Banner de Cookies (Obrigatório para AdSense) -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 p-4 shadow-2xl z-[100] translate-y-full transition-transform duration-500">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+                Utilizamos cookies para personalizar anúncios e melhorar sua experiência. Ao continuar, você concorda com nossa <a href="politica-privacidade.html" class="text-primary underline">Política de Privacidade</a>.
+            </p>
+            <button id="accept-cookies" class="whitespace-nowrap bg-primary hover:bg-secondary text-white px-6 py-2 rounded-lg font-bold transition-all">
+                Aceitar e Continuar
+            </button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Inicializar anúncios AdSense (opcional após colar o script no head)
+        // (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</body>
+</html>
